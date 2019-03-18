@@ -38,13 +38,13 @@ app.post("/login",(req,res)=>{
         res.status(401).json({errorMsg:"Login not Successful"});
         }
     });
-app.put('/countries/:country',(req,res)=>{
+app.put('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
     countries.push(req.params.country);
 });
 app.get('/countries',passport.authenticate('jwt', { session: false }),(req,res)=>{
     res.status(200).json({countries});
 });
-app.delete('/countries/:country',(req,res)=>{
+app.delete('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
     countries.splice(req.params.country);
 });
 app.listen(port,()=>{
