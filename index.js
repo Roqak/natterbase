@@ -45,7 +45,10 @@ app.get('/countries',passport.authenticate('jwt', { session: false }),(req,res)=
     res.status(200).json({countries});
 });
 app.delete('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
-    countries.splice(req.params.country);
+    while (countries.indexOf(country) !== -1) {
+        countries.splice(items.indexOf(country), 1);
+      }
+    res.status(200).json({countries});
 });
 app.listen(port,()=>{
     console.log("Listening on port "+port);
