@@ -39,7 +39,13 @@ app.post("/login",(req,res)=>{
         }
     });
 app.put('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
-    countries.push(req.params.country);
+    if(countries.includes(req.params.country)){
+        countries.push(req.params.country);
+        res.status(200).json({countries});
+    }else{
+        res.status(200).json({"response":"ERROR COUNTRY EXISTS"});
+    }
+    
 });
 app.get('/countries',passport.authenticate('jwt', { session: false }),(req,res)=>{
     res.status(200).json({countries});
