@@ -6,7 +6,7 @@ const port = 3000;
 const bodyParser = require('body-parser');
 
 
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }));
 let countries = [];
 
 app.use(passport.initialize());
