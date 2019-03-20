@@ -39,7 +39,7 @@ app.post("/login",(req,res)=>{
         }
     });
 app.put('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
-    if(countries.includes(req.params.country)){
+    if(!countries.includes(req.params.country)){
         countries.push(req.params.country);
         res.status(200).json({countries});
     }else{
@@ -51,8 +51,8 @@ app.get('/countries',passport.authenticate('jwt', { session: false }),(req,res)=
     res.status(200).json({countries});
 });
 app.delete('/countries/:country',passport.authenticate('jwt', { session: false }),(req,res)=>{
-    while (countries.indexOf(country) !== -1) {
-        countries.splice(items.indexOf(country), 1);
+    while (countries.indexOf(req.params.country) !== -1) {
+        countries.splice(countries.indexOf(req.params.country), 1);
       }
     res.status(200).json({countries});
 });

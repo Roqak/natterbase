@@ -4,7 +4,7 @@ let chaiHttp = require('chai-http');
 let app = require('./index');
 
 
-let token = null
+let token = "Bearer ";
 
 
 chai.use(chaiHttp);
@@ -17,14 +17,14 @@ describe('/POST login', () => {
         let user = {
             username: "admin",
             password: "admin"
-        }
+        };
         chai.request(app)
             .post('/login')
             .send(user)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object'); 
-                token = res.body.payload.token;
+                token += res.body.payload.token;
                 done();
             });
     });
@@ -62,9 +62,9 @@ describe('/PUT countries', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 done();
-            })
-    })
-} )
+            });
+    });
+} );
 
 /*
 * Test the /DELETE route
@@ -73,15 +73,14 @@ describe('/DELETE countries', () => {
     it('it should find a matching country and delete from the array', (done) => {
         let countries = {
             name: "Nigeria"
-        }
+        };
         chai.request(app)
         .delete(`/countries/${countries.name}`)
         .set('x-access-token', token)
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.payload.responseData.should.be.a('string');
             done();
-        })
-    })
-})
+        });
+    });
+});

@@ -5,7 +5,6 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'secretIsaSecretee';
 var users = [
     {
-      id: 1,
       username: 'admin',
       password: 'admin'
     }
